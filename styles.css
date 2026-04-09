@@ -11,30 +11,15 @@ body {
   min-height: 100vh;
 }
 
-/* ── Cork board background ── */
+/* ── Main background ── */
 .corkboard {
   min-height: 100vh;
-  background-color: #b87640;
+  background: #12121e;
   background-image:
-    /* subtle grain patches */
-    radial-gradient(ellipse at 10% 90%, rgba(80, 45, 10, 0.30) 0%, transparent 40%),
-    radial-gradient(ellipse at 90% 10%, rgba(195, 140, 70, 0.35) 0%, transparent 40%),
-    radial-gradient(ellipse at 55% 55%, rgba(100, 60, 20, 0.15) 0%, transparent 55%),
-    /* fine woven texture */
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 3px,
-      rgba(0, 0, 0, 0.03) 3px,
-      rgba(0, 0, 0, 0.03) 4px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 3px,
-      rgba(255, 255, 255, 0.025) 3px,
-      rgba(255, 255, 255, 0.025) 4px
-    );
+    /* vivid color glow blobs */
+    radial-gradient(ellipse at 18% 28%, rgba(99, 60, 220, 0.30) 0%, transparent 55%),
+    radial-gradient(ellipse at 82% 72%, rgba(0, 200, 180, 0.22) 0%, transparent 50%),
+    radial-gradient(ellipse at 55% 10%, rgba(255, 80, 140, 0.18) 0%, transparent 45%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,9 +39,13 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: clamp(2.4rem, 6vw, 4rem);
   font-weight: 700;
-  color: #fff;
+  /* vivid gradient text */
+  background: linear-gradient(120deg, #a78bfa, #38bdf8, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: 0.06em;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  text-shadow: none;
 }
 
 /* ── Social buttons ── */
@@ -75,8 +64,8 @@ body {
   font-size: 1.35rem;
   color: #fff;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(6px);
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -126,14 +115,30 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  /* shiny red pin cap */
+  /* default (overridden per card) */
   background: radial-gradient(circle at 36% 32%, #ffd0d0, #d62828 48%, #7a0000);
   box-shadow:
-    0 3px 7px rgba(0, 0, 0, 0.55),
-    inset 0 1px 2px rgba(255, 255, 255, 0.30);
+    0 3px 10px rgba(0, 0, 0, 0.60),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+/* coral-orange tack — card 1 */
+.tack.tack-coral {
+  background: radial-gradient(circle at 36% 32%, #ffe5c0, #ff6b35 48%, #a33000);
+  box-shadow:
+    0 3px 10px rgba(255, 107, 53, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+/* teal-mint tack — card 2 */
+.tack.tack-teal {
+  background: radial-gradient(circle at 36% 32%, #b2ffe8, #00c9a7 48%, #006655);
+  box-shadow:
+    0 3px 10px rgba(0, 201, 167, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
 }
 
 /* pin shaft (tiny sliver visible below the cap, above the paper edge) */
@@ -153,20 +158,21 @@ body {
 /* ── Paper strip ── */
 .paper {
   position: relative;
-  background: #fdf6e3;
+  background: #1e1e32;
   padding: 36px 52px 28px;
   min-width: 260px;
-  /* lined paper texture */
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 4px;
+  /* subtle ruled lines */
   background-image: repeating-linear-gradient(
     transparent,
     transparent 28px,
-    rgba(130, 170, 220, 0.35) 28px,
-    rgba(130, 170, 220, 0.35) 29px
+    rgba(100, 120, 200, 0.12) 28px,
+    rgba(100, 120, 200, 0.12) 29px
   );
   box-shadow:
-    3px 4px 14px rgba(0, 0, 0, 0.28),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-  /* tiny hole where pin goes through */
+    4px 6px 20px rgba(0, 0, 0, 0.50),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
   overflow: visible;
 }
 
@@ -180,8 +186,8 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.18);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 /* ── Section label (handwritten font) ── */
@@ -189,13 +195,14 @@ body {
   font-family: 'Caveat', cursive;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
-  color: #2c2416;
+  color: #e8e0ff;
   display: block;
   text-align: center;
   white-space: nowrap;
   position: relative;
   z-index: 1;
   line-height: 1.4;
+  text-shadow: 0 0 18px rgba(167, 139, 250, 0.30);
 }
 
 /* ── Responsive: stack vertically on small screens ── */

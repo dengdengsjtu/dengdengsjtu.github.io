@@ -11,46 +11,283 @@
   />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      background: #1a1a2e;
+      background: #12121e;
       color: #e0e0e0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 24px;
-      gap: 40px;
+      padding: 56px 24px 100px;
     }
+
+    /* ── Back link ── */
     .back-link {
       align-self: flex-start;
-      color: #aaa;
+      color: #888;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       display: flex;
       align-items: center;
       gap: 6px;
+      margin-bottom: 40px;
       transition: color 0.2s;
     }
     .back-link:hover { color: #fff; }
-    h1 {
+
+    /* ── Page title ── */
+    .page-title {
       font-family: 'Caveat', cursive;
-      font-size: 3rem;
+      font-size: clamp(2.2rem, 5vw, 3rem);
       font-weight: 700;
       color: #fff;
       text-align: center;
+      margin-bottom: 64px;
+      letter-spacing: 0.03em;
     }
-    .placeholder {
-      max-width: 640px;
-      text-align: center;
+
+    /* ── Section heading ── */
+    .section-heading {
+      width: 100%;
+      max-width: 760px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #6c8ebf;
+      margin-bottom: 28px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #2a2a40;
+    }
+
+    /* ── Experience cards ── */
+    .exp-list {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    .exp-card {
+      background: #1c1c30;
+      border: 1px solid #2e2e48;
+      border-radius: 14px;
+      padding: 32px 36px 36px;
+      transition: box-shadow 0.25s ease;
+    }
+    .exp-card:hover {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ── Header row: company / role / location ── */
+    .exp-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px 18px;
+      margin-bottom: 28px;
+    }
+
+    .company-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .job-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #7eb3ff;
+    }
+
+    .job-location {
+      font-size: 0.88rem;
       color: #888;
-      line-height: 1.7;
+      margin-left: auto;
+    }
+
+    /* ── Blank image placeholder ── */
+    .exp-image {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      background: #252540;
+      border: 2px dashed #3a3a5c;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+
+    .exp-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      display: none; /* hidden until src is set */
+    }
+
+    .img-placeholder-text {
+      font-size: 0.85rem;
+      color: #3e3e60;
+      letter-spacing: 0.08em;
+      user-select: none;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+    }
+
+    /* the horizontal track */
+    .tl-track {
+      flex: 1;
+      height: 3px;
+      background: linear-gradient(to right, #4a90d9, #7eb3ff);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    /* arrow on the right end of the track — kept clear of the right dot */
+    .tl-track::after {
+      content: '';
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 10px solid #7eb3ff;
+    }
+
+    /* pull the right node back so the arrow tip lands just before it */
+    .tl-node:last-child {
+      margin-left: 18px;
+    }
+
+    /* end-point circles */
+    .tl-node {
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tl-node .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #4a90d9;
+      border: 3px solid #7eb3ff;
+      box-shadow: 0 0 0 3px rgba(126, 179, 255, 0.20);
+      flex-shrink: 0;
+    }
+
+    /* "present" dot pulses */
+    .tl-node.present .dot {
+      background: #7eb3ff;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(126, 179, 255, 0.20); }
+      50%       { box-shadow: 0 0 0 8px rgba(126, 179, 255, 0.00); }
+    }
+
+    .tl-node .tl-date {
+      position: absolute;
+      top: 26px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #a0b4d0;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* left node — date left-aligned; right — right-aligned */
+    .tl-node:first-child .tl-date { left: 0; }
+    .tl-node:last-child  .tl-date { right: 0; }
+
+    .tl-node:last-child .tl-date.is-present {
+      color: #7eb3ff;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
+
   <a href="index.html" class="back-link">&#8592; Back to home</a>
-  <h1>Working / Project Experience</h1>
-  <p class="placeholder">Content coming soon. Add your work history, projects, and achievements here.</p>
+
+  <h1 class="page-title">Working / Project Experience</h1>
+
+  <!-- ── Working Experience ── -->
+  <div class="section-heading">Working Experience</div>
+
+  <div class="exp-list">
+
+    <!-- ── Axis Communications ── -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="company-name">Axis Communications</span>
+        <span class="job-title">Master Thesis Student</span>
+        <span class="job-location">Lund, Sweden</span>
+      </div>
+
+      <div class="exp-image">
+        <!-- Replace src with a real image path when ready -->
+        <img src="" alt="Axis Communications – Master Thesis work" />
+        <span class="img-placeholder-text">IMAGE PLACEHOLDER</span>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-node">
+          <div class="dot"></div>
+          <span class="tl-date">01 / 2026</span>
+        </div>
+        <div class="tl-track"></div>
+        <div class="tl-node present">
+          <div class="dot"></div>
+          <span class="tl-date is-present">Present</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Ericsson ── -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="company-name">Ericsson</span>
+        <span class="job-title">R&amp;D Summer Internship</span>
+        <span class="job-location">Lund, Sweden</span>
+      </div>
+
+      <div class="exp-image">
+        <img src="" alt="Ericsson – R&D Summer Internship" />
+        <span class="img-placeholder-text">IMAGE PLACEHOLDER</span>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-node">
+          <div class="dot"></div>
+          <span class="tl-date">06 / 2025</span>
+        </div>
+        <div class="tl-track"></div>
+        <div class="tl-node">
+          <div class="dot"></div>
+          <span class="tl-date">08 / 2025</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.exp-list -->
+
 </body>
 </html>
