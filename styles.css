@@ -1,0 +1,212 @@
+/* ── Reset ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Base ── */
+body {
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── Cork board background ── */
+.corkboard {
+  min-height: 100vh;
+  background-color: #b87640;
+  background-image:
+    /* subtle grain patches */
+    radial-gradient(ellipse at 10% 90%, rgba(80, 45, 10, 0.30) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 10%, rgba(195, 140, 70, 0.35) 0%, transparent 40%),
+    radial-gradient(ellipse at 55% 55%, rgba(100, 60, 20, 0.15) 0%, transparent 55%),
+    /* fine woven texture */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.03) 3px,
+      rgba(0, 0, 0, 0.03) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.025) 3px,
+      rgba(255, 255, 255, 0.025) 4px
+    );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 40px 100px;
+  gap: 72px;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.name {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Social buttons ── */
+.social-links {
+  display: flex;
+  gap: 16px;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 1.35rem;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.social-btn.youtube:hover  { background: #ff0000; border-color: #ff0000; }
+.social-btn.linkedin:hover { background: #0a66c2; border-color: #0a66c2; }
+.social-btn.github:hover   { background: #24292f; border-color: #24292f; }
+
+/* ── Pinboard row ── */
+.pinboard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 72px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ── Pin card (the tack + paper) ── */
+.pin-card {
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: rotate(var(--rot, 0deg));
+  transition: transform 0.28s ease, filter 0.28s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pin-card:hover {
+  transform: rotate(0deg) scale(1.06) translateY(-6px);
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.35));
+  z-index: 10;
+}
+
+/* ── Thumbtack head ── */
+.tack {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  /* shiny red pin cap */
+  background: radial-gradient(circle at 36% 32%, #ffd0d0, #d62828 48%, #7a0000);
+  box-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 0.30);
+}
+
+/* pin shaft (tiny sliver visible below the cap, above the paper edge) */
+.tack::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 10px;
+  background: linear-gradient(to bottom, #c8c8c8, #707070);
+  border-radius: 0 0 3px 3px;
+  z-index: -1;
+}
+
+/* ── Paper strip ── */
+.paper {
+  position: relative;
+  background: #fdf6e3;
+  padding: 36px 52px 28px;
+  min-width: 260px;
+  /* lined paper texture */
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 28px,
+    rgba(130, 170, 220, 0.35) 28px,
+    rgba(130, 170, 220, 0.35) 29px
+  );
+  box-shadow:
+    3px 4px 14px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  /* tiny hole where pin goes through */
+  overflow: visible;
+}
+
+/* pin-hole shadow on paper */
+.paper::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Section label (handwritten font) ── */
+.label {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #2c2416;
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+  line-height: 1.4;
+}
+
+/* ── Responsive: stack vertically on small screens ── */
+@media (max-width: 600px) {
+  .pinboard {
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+  }
+  .label {
+    white-space: normal;
+    max-width: 200px;
+  }
+}
