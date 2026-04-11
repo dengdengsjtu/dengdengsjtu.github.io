@@ -3,76 +3,376 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yuqian's Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <title>Yuqian Deng</title>
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: #333;
+      background: #fff;
+    }
+
+    .page {
+      max-width: 100%;
+      padding: 52px 6vw 100px;
+    }
+
+    /* ── Profile ── */
+    .profile {
+      display: flex;
+      gap: 36px;
+      align-items: flex-start;
+      margin-bottom: 36px;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e0e0e0;
+      flex-shrink: 0;
+    }
+
+    .profile-right h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .social-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      font-size: 0.93rem;
+    }
+
+    .social-row .sep { color: #ccc; padding: 0 2px; }
+    .social-row a { color: #1a73e8; text-decoration: none; }
+    .social-row a:hover { text-decoration: underline; }
+    .social-row .icon-link:hover { text-decoration: none; }
+    .social-row .icon-link { font-size: 1.15rem; color: #555; transition: color 0.15s, transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid #e0e0e0; text-decoration: none; }
+    .social-row .icon-link:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    .social-row .icon-link:hover { color: #111; }
+    .social-row .icon-link.li:hover  { color: #0a66c2; }
+    .social-row .icon-link.yt:hover  { color: #ff0000; }
+    .social-row .icon-link.em:hover  { color: #e03b3b; }
+
+    .intro p { font-size: 0.95rem; color: #444; line-height: 1.7; margin-bottom: 3px; }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid #ebebeb; margin: 34px 0; }
+
+    /* ── Section heading ── */
+    .sec-head {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #111;
+      border-bottom: 2px solid #111;
+      display: inline-block;
+      padding-bottom: 3px;
+      margin-bottom: 36px;
+    }
+
+    /* ── Project list ── */
+    .proj-list { display: flex; flex-direction: column; gap: 48px; }
+
+    .proj-item {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    .proj-media {
+      flex-shrink: 0;
+      width: 270px;
+    }
+
+    .proj-media video,
+    .proj-media img {
+      width: 100%;
+      border-radius: 6px;
+      display: block;
+      border: 1px solid #eee;
+    }
+
+    .media-ph {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: #f8f8f8;
+      border: 1px dashed #ddd;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #ccc;
+      letter-spacing: 0.07em;
+      user-select: none;
+    }
+
+    .proj-info { flex: 1; min-width: 0; }
+
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 2px 10px;
+      margin-bottom: 4px;
+    }
+
+    .proj-org  { font-weight: 700; font-size: 0.97rem; color: #111; }
+    .proj-date { font-size: 0.85rem; color: #999; white-space: nowrap; }
+
+    .proj-subtitle {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 8px;
+    }
+
+    .proj-scene {
+      font-size: 0.875rem;
+      color: #555;
+      line-height: 1.62;
+      margin-bottom: 10px;
+    }
+
+    .proj-links { font-size: 0.83rem; color: #555; margin-bottom: 12px; }
+    .proj-links a { color: #1a73e8; text-decoration: none; margin-right: 10px; }
+    .proj-links a:hover { text-decoration: underline; }
+
+    .learn-btn {
+      display: inline-block;
+      padding: 4px 13px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .learn-btn:hover { background: #111; color: #fff; border-color: #111; }
+
+    /* ── Education ── */
+    .edu-block { display: flex; flex-direction: column; gap: 24px; margin-bottom: 0; }
+    .edu-item {}
+    .edu-header { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; margin-bottom: 3px; }
+    .edu-school { font-weight: 700; font-size: 0.97rem; color: #111; }
+    .edu-location { font-size: 0.85rem; color: #999; }
+    .edu-date { font-size: 0.85rem; color: #999; margin-left: auto; white-space: nowrap; }
+    .edu-degree { font-size: 0.92rem; color: #444; margin-bottom: 3px; }
+    .edu-courses { font-size: 0.85rem; color: #777; line-height: 1.55; }
+
+    /* ── Biography ── */
+    .bio-block p {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.72;
+      margin-bottom: 12px;
+    }
+    .bio-block a { color: #1a73e8; text-decoration: none; }
+    .bio-block a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .profile { flex-direction: column; align-items: center; text-align: center; }
+      .social-row { justify-content: center; }
+      .proj-item { flex-direction: column; }
+      .proj-media { width: 100%; }
+      .proj-header { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-  <div class="corkboard">
+  <div class="page">
 
-    <!-- ── Header ── -->
-    <header class="header">
-      <h1 class="name">Yuqian</h1>
-      <nav class="social-links" aria-label="Social links">
-        <a
-          href="https://www.youtube.com/@yuqiandeng"
-          class="social-btn youtube"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="YouTube"
-        >
-          <i class="fab fa-youtube"></i>
-        </a>
-        <a
-          href="https://www.linkedin.com/in/yuqian-deng-997538304/"
-          class="social-btn linkedin"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn"
-        >
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-        <a
-          href="https://github.com/dengdengsjtu"
-          class="social-btn github"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-        >
-          <i class="fab fa-github"></i>
-        </a>
-      </nav>
-    </header>
-
-    <!-- ── Pinboard ── -->
-    <main class="pinboard">
-
-      <a href="experience.html" class="pin-card" style="--rot: -2.5deg;">
-        <div class="tack tack-coral"></div>
-        <div class="paper">
-          <span class="label">Working / Project Experience</span>
+    <!-- ── Profile ── -->
+    <div class="profile">
+      <img src="Files/Pics/ProfilePics/Pic1.jpg" alt="Yuqian Deng" class="avatar" />
+      <div class="profile-right">
+        <h1>Yuqian Deng</h1>
+        <div class="social-row">
+          <a href="mailto:dyuqina@gmail.com" class="icon-link em" title="Email"><i class="fas fa-envelope"></i></a>
+          <span class="sep">/</span>
+          <a href="https://www.linkedin.com/in/yuqian-deng-997538304/" target="_blank" rel="noopener noreferrer" class="icon-link li" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <span class="sep">/</span>
+          <a href="https://www.youtube.com/@yuqiandeng" target="_blank" rel="noopener noreferrer" class="icon-link yt" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <span class="sep">/</span>
+          <a href="https://github.com/dengdengsjtu" target="_blank" rel="noopener noreferrer" class="icon-link gh" title="GitHub"><i class="fab fa-github"></i></a>
         </div>
-      </a>
-
-      <a href="life.html" class="pin-card" style="--rot: 1.8deg;">
-        <div class="tack tack-teal"></div>
-        <div class="paper">
-          <span class="label">Beyond the Work</span>
+        <div class="intro">
+          <p>I am pursuing my Master's degree in the VR/AR programme at Lund University.</p>
+          <p>Currently, I am a Master Thesis student at Axis Communications.</p>
+          <p>Previously, I received my Bachelor's degree in Electronic Science and Technology from Shanghai Jiao Tong University.</p>
         </div>
-      </a>
+      </div>
+    </div>
 
-    </main>
+    <hr />
 
-  </div>
+    <!-- ── Working Experience / Projects ── -->
+    <h2 class="sec-head">Working Experience / Projects</h2>
+
+    <div class="proj-list">
+
+      <!-- 1. Axis Communications -->
+      <div class="proj-item">
+        <div class="proj-media">
+          <!-- Replace with: <video src="axis-demo.mp4" autoplay loop muted playsinline></video> -->
+          <div class="media-ph">VIDEO PLACEHOLDER</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-header">
+            <span class="proj-org">Axis Communications &mdash; Master Thesis Student</span>
+            <span class="proj-date">01/2026 &ndash; Present</span>
+          </div>
+          <p class="proj-subtitle">4D Gaussian Splatting</p>
+          <p class="proj-scene">
+            Imagine moving around in a room with cameras observing you.
+            With an all-in-one UI and a smooth pipeline, you simply click — and after
+            an acceptable wait, you can replay your own movement from a novel viewpoint
+            inside a VR headset. The focus is near-real-time dynamic scene reconstruction.
+          </p>
+          <p class="proj-links">
+            <a href="#">Paper</a>
+            <a href="#">Video</a>
+            <a href="#">Poster</a>
+          </p>
+          <a href="axis.html" class="learn-btn">Learn more &rarr;</a>
+        </div>
+      </div>
+
+      <!-- 2. Ericsson -->
+      <div class="proj-item">
+        <div class="proj-media">
+          <!-- Replace with: <img src="ericsson.jpg" alt="Ericsson latency system"> -->
+          <div class="media-ph">IMAGE PLACEHOLDER</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-header">
+            <span class="proj-org">Ericsson &mdash; R&amp;D Summer Internship</span>
+            <span class="proj-date">06/2025 &ndash; 08/2025</span>
+          </div>
+          <p class="proj-subtitle">Latency Measurement System for XR Devices</p>
+          <p class="proj-scene">
+            Measuring visual latency of VR and AR devices is essential for evaluating
+            system performance across different communication methods. Commercial testing
+            tools are expensive; our system achieves fast, low-cost, adaptive, intuitive,
+            and stable measurement.
+          </p>
+          <a href="ericsson.html" class="learn-btn">Learn more &rarr;</a>
+        </div>
+      </div>
+
+      <!-- 3. AR Mockup -->
+      <div class="proj-item">
+        <div class="proj-media">
+          <!-- Replace with: <video src="ar-demo.mp4" autoplay loop muted playsinline></video> -->
+          <div class="media-ph">VIDEO PLACEHOLDER</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-header">
+            <span class="proj-org">An Interactive AR Mockup Model</span>
+            <span class="proj-date">09/2025 &ndash; 12/2025</span>
+          </div>
+          <p class="proj-scene">
+            Imagine planning surveillance camera placements in a space and wanting to
+            evaluate coverage before any physical installation. Instead of costly
+            real-world trial-and-error, you and a collaborator can wear AR headsets,
+            place virtual cameras together, draw pedestrian routes on a map, and observe
+            live camera streams — all in a shared AR scene.
+          </p>
+          <p class="proj-links">
+            <a href="#">Report</a>
+            <a href="#">Video</a>
+          </p>
+          <a href="ar.html" class="learn-btn">Learn more &rarr;</a>
+        </div>
+      </div>
+
+      <!-- 4. Bachelor Thesis -->
+      <div class="proj-item">
+        <div class="proj-media">
+          <div style="display:flex;flex-direction:column;border-radius:6px;overflow:hidden;border:1px solid #eee;">
+            <img src="Files/Pics/BachelorThesis/zhedie1.png" alt="Folded optics structure" style="width:100%;display:block;" />
+            <img src="Files/Pics/BachelorThesis/shiji.png" alt="CLC reflector" style="width:100%;display:block;" />
+            <img src="Files/Pics/BachelorThesis/red.jpg" alt="Optical result" style="width:100%;display:block;" />
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-header">
+            <span class="proj-org">Bachelor Thesis</span>
+            <span class="proj-date">11/2023 &ndash; 05/2024</span>
+          </div>
+          <p class="proj-subtitle">High-efficiency Folded Optics for Near-eye Displays</p>
+          <p class="proj-scene">
+            Pancake lens structure offers a promising path to compact near-eye displays, but the use of a half-mirror to triple the optical path length limits the theoretical maximum efficiency to 25%. To reduce power consumption and battery weight, we propose a folded optical structure using two polarization-selective cholesteric liquid-crystal reflectors, achieving 50% optical efficiency with a doubled optical path length.
+          </p>
+          <p class="proj-links">
+            <a href="Files/Paper/头戴式近眼3D显示系统.pdf" target="_blank">Paper</a>
+          </p>
+          <a href="bachelor.html" class="learn-btn">Learn more &rarr;</a>
+        </div>
+      </div>
+
+    </div><!-- /.proj-list -->
+
+    <hr />
+
+    <!-- ── Education ── -->
+    <h2 class="sec-head">Education</h2>
+
+    <div class="edu-block">
+      <div class="edu-item">
+        <div class="edu-header">
+          <span class="edu-school">Lund University</span>
+          <span class="edu-location">Sweden</span>
+          <span class="edu-date">2024 &ndash; Expected 06/2026</span>
+        </div>
+        <p class="edu-degree">M.Eng. in Virtual Reality and Augmented Reality; GPA: 4.14/5.0</p>
+        <p class="edu-courses">Main Courses: Computer Vision, Image Analysis, Computer Graphics, Virtual Reality, Augmented Reality</p>
+      </div>
+      <div class="edu-item">
+        <div class="edu-header">
+          <span class="edu-school">Shanghai Jiao Tong University</span>
+          <span class="edu-location">China</span>
+          <span class="edu-date">2020 &ndash; 2024</span>
+        </div>
+        <p class="edu-degree">B.Eng. in Electronic Science and Technology; GPA: 3.50/4.0</p>
+        <p class="edu-courses">Main Courses: Signals and Systems, Embedded System and Interface, Physics, Electronic Circuits, Principles of Communications</p>
+      </div>
+    </div><!-- /.edu-block -->
+
+    <hr />
+
+    <!-- ── Biography ── -->
+    <h2 class="sec-head">Biography</h2>
+
+    <div class="bio-block">
+      <p>
+        I love breaking a challenging project into small, executable, day-by-day tasks,
+        and I enjoy exploring new technologies and tools.
+      </p>
+      <p>
+        Outside of study and work, I am passionate about sports and experiencing new things.
+        <a href="life.html">See more here &rarr;</a>
+      </p>
+    </div><!-- /.bio-block -->
+
+  </div><!-- /.page -->
 </body>
 </html>

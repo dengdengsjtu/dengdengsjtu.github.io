@@ -1,219 +1,141 @@
 /* ── Reset ── */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 /* ── Base ── */
 body {
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #333;
+  background: #fff;
 }
 
-/* ── Main background ── */
-.corkboard {
-  min-height: 100vh;
-  background: #12121e;
-  background-image:
-    /* vivid color glow blobs */
-    radial-gradient(ellipse at 18% 28%, rgba(99, 60, 220, 0.30) 0%, transparent 55%),
-    radial-gradient(ellipse at 82% 72%, rgba(0, 200, 180, 0.22) 0%, transparent 50%),
-    radial-gradient(ellipse at 55% 10%, rgba(255, 80, 140, 0.18) 0%, transparent 45%);
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 56px 28px 100px;
+}
+
+/* ── Avatar ── */
+.avatar-wrap {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #e0e0e0;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Profile block ── */
+.profile {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 70px 40px 100px;
-  gap: 72px;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
-/* ── Header ── */
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
+.profile-info { flex: 1; }
 
-.name {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(2.4rem, 6vw, 4rem);
+.profile-name {
+  font-size: 2rem;
   font-weight: 700;
-  /* vivid gradient text */
-  background: linear-gradient(120deg, #a78bfa, #38bdf8, #34d399);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 0.06em;
-  text-shadow: none;
+  color: #111;
+  margin-bottom: 8px;
 }
 
-/* ── Social buttons ── */
-.social-links {
+.profile-links {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.profile-links a {
+  color: #1565c0;
+  text-decoration: none;
+}
+.profile-links a:hover { text-decoration: underline; }
+
+.profile-bio {
+  font-size: 0.97rem;
+  color: #444;
+  line-height: 1.7;
+}
+
+/* ── Divider ── */
+hr {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  margin: 36px 0;
+}
+
+/* ── Section heading ── */
+.section-head {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #111;
+  display: inline-block;
+  margin-bottom: 28px;
+}
+
+/* ── Navigation cards ── */
+.nav-grid {
   display: flex;
   gap: 16px;
-}
-
-.social-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  font-size: 1.35rem;
-  color: #fff;
-  text-decoration: none;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(6px);
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.social-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-}
-
-.social-btn.youtube:hover  { background: #ff0000; border-color: #ff0000; }
-.social-btn.linkedin:hover { background: #0a66c2; border-color: #0a66c2; }
-.social-btn.github:hover   { background: #24292f; border-color: #24292f; }
-
-/* ── Pinboard row ── */
-.pinboard {
-  display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  gap: 72px;
-  justify-content: center;
-  align-items: flex-start;
 }
 
-/* ── Pin card (the tack + paper) ── */
-.pin-card {
-  position: relative;
+.nav-card {
+  flex: 1;
+  min-width: 210px;
+  padding: 20px 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
   text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: rotate(var(--rot, 0deg));
-  transition: transform 0.28s ease, filter 0.28s ease;
-  cursor: pointer;
-  user-select: none;
+  color: #111;
+  transition: border-color 0.18s, box-shadow 0.18s;
 }
 
-.pin-card:hover {
-  transform: rotate(0deg) scale(1.06) translateY(-6px);
-  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.35));
-  z-index: 10;
+.nav-card:hover {
+  border-color: #999;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
 }
 
-/* ── Thumbtack head ── */
-.tack {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  /* default (overridden per card) */
-  background: radial-gradient(circle at 36% 32%, #ffd0d0, #d62828 48%, #7a0000);
-  box-shadow:
-    0 3px 10px rgba(0, 0, 0, 0.60),
-    inset 0 1px 2px rgba(255, 255, 255, 0.35);
-}
-
-/* coral-orange tack — card 1 */
-.tack.tack-coral {
-  background: radial-gradient(circle at 36% 32%, #ffe5c0, #ff6b35 48%, #a33000);
-  box-shadow:
-    0 3px 10px rgba(255, 107, 53, 0.55),
-    inset 0 1px 2px rgba(255, 255, 255, 0.35);
-}
-
-/* teal-mint tack — card 2 */
-.tack.tack-teal {
-  background: radial-gradient(circle at 36% 32%, #b2ffe8, #00c9a7 48%, #006655);
-  box-shadow:
-    0 3px 10px rgba(0, 201, 167, 0.55),
-    inset 0 1px 2px rgba(255, 255, 255, 0.35);
-}
-
-/* pin shaft (tiny sliver visible below the cap, above the paper edge) */
-.tack::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 5px;
-  height: 10px;
-  background: linear-gradient(to bottom, #c8c8c8, #707070);
-  border-radius: 0 0 3px 3px;
-  z-index: -1;
-}
-
-/* ── Paper strip ── */
-.paper {
-  position: relative;
-  background: #1e1e32;
-  padding: 36px 52px 28px;
-  min-width: 260px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 4px;
-  /* subtle ruled lines */
-  background-image: repeating-linear-gradient(
-    transparent,
-    transparent 28px,
-    rgba(100, 120, 200, 0.12) 28px,
-    rgba(100, 120, 200, 0.12) 29px
-  );
-  box-shadow:
-    4px 6px 20px rgba(0, 0, 0, 0.50),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-  overflow: visible;
-}
-
-/* pin-hole shadow on paper */
-.paper::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
-}
-
-/* ── Section label (handwritten font) ── */
-.label {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(1.5rem, 3vw, 2rem);
+.nav-label {
+  font-size: 0.7rem;
   font-weight: 700;
-  color: #e8e0ff;
-  display: block;
-  text-align: center;
-  white-space: nowrap;
-  position: relative;
-  z-index: 1;
-  line-height: 1.4;
-  text-shadow: 0 0 18px rgba(167, 139, 250, 0.30);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 6px;
 }
 
-/* ── Responsive: stack vertically on small screens ── */
-@media (max-width: 600px) {
-  .pinboard {
+.nav-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.nav-arrow {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* ── Responsive ── */
+@media (max-width: 560px) {
+  .profile {
     flex-direction: column;
     align-items: center;
-    gap: 56px;
+    text-align: center;
   }
-  .label {
-    white-space: normal;
-    max-width: 200px;
-  }
+  .nav-grid { flex-direction: column; }
 }
