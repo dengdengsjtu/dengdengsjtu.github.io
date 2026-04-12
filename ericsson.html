@@ -7,7 +7,7 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #fff; color: #333; font-size: 15.5px; line-height: 1.65; }
-    .page { max-width: 900px; margin: 0 auto; padding: 52px 28px 100px; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 52px 42px 100px; }
     .back { display: inline-flex; align-items: center; gap: 5px; font-size: 0.88rem; color: #888; text-decoration: none; margin-bottom: 36px; }
     .back:hover { color: #111; }
     .meta { font-size: 0.85rem; color: #999; margin-bottom: 6px; }
@@ -15,8 +15,53 @@
     .subtitle { font-size: 1rem; font-weight: 600; color: #555; margin-bottom: 24px; }
     hr { border: none; border-top: 1px solid #ebebeb; margin: 28px 0; }
     .section-head { font-size: 0.95rem; font-weight: 700; color: #111; border-bottom: 2px solid #111; display: inline-block; padding-bottom: 3px; margin-bottom: 20px; }
-    p { font-size: 0.95rem; color: #444; line-height: 1.72; margin-bottom: 16px; max-width: 720px; }
-    .media-ph { width: 100%; max-width: 680px; aspect-ratio: 16/9; background: #f8f8f8; border: 1px dashed #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: #ccc; letter-spacing: 0.07em; margin-bottom: 28px; }
+    p { font-size: 0.95rem; color: #444; line-height: 1.72; margin-bottom: 16px; }
+    .signal-showcase {
+      position: relative;
+      margin: 24px 0;
+      padding: 22px;
+      border: 1px solid #e9eef5;
+      border-radius: 18px;
+      background: linear-gradient(160deg, #fbfdff 0%, #f5f8fc 100%);
+      overflow: hidden;
+    }
+    .signal-showcase::before,
+    .signal-showcase::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .signal-showcase::before {
+      width: 220px;
+      height: 220px;
+      top: -130px;
+      left: -90px;
+      background: radial-gradient(circle, rgba(83, 131, 255, 0.16) 0%, rgba(83, 131, 255, 0) 70%);
+    }
+    .signal-showcase::after {
+      width: 220px;
+      height: 220px;
+      right: -90px;
+      bottom: -130px;
+      background: radial-gradient(circle, rgba(32, 196, 162, 0.16) 0%, rgba(32, 196, 162, 0) 70%);
+    }
+    .signal-showcase > * {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-img { width: 100%; max-width: 680px; border-radius: 8px; border: 1px solid #e8e8e8; display: block; margin: 8px auto 24px; }
+    .equation-wrap { text-align: center; margin: 0 auto 24px; }
+    .equation {
+      font-family: "Cambria Math", "Times New Roman", Georgia, serif;
+      font-size: 1.08rem;
+      color: #222;
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+    .equation-note { font-size: 0.9rem; color: #666; margin: 0; }
+    ul { margin: 0 0 18px 20px; }
+    li { font-size: 0.94rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
   </style>
 </head>
 <body>
@@ -26,18 +71,47 @@
     <p class="meta">Ericsson &mdash; R&amp;D Summer Internship &nbsp;|&nbsp; 06/2025 – 08/2025 &nbsp;|&nbsp; Lund, Sweden</p>
     <h1>Latency Measurement System for XR Devices</h1>
 
-    <!-- Replace with real image when available -->
-    <div class="media-ph">IMAGE PLACEHOLDER</div>
-
     <hr />
     <h2 class="section-head">Overview</h2>
     <p>
-      Measuring visual latency of VR and AR devices is essential for evaluating
-      system performance across different communication methods. Commercial testing
-      tools are expensive; our system achieves fast, low-cost, adaptive, intuitive,
-      and stable measurement.
+      Measuring visual latency of VR and AR devices is important for
+      evaluating system performance across different communication methods.
+      However, commercial testing solutions are often expensive. Our system provides
+      a fast, low-cost, adaptive, intuitive, and stable approach for latency measurement.
     </p>
-    <p>More details coming soon.</p>
+
+    <div class="signal-showcase">
+      <img src="Files/Pics/LatencyMeasure/sys_illustration.png" alt="Latency measurement system illustration" class="hero-img" />
+
+      <div class="equation-wrap">
+        <p class="equation"><strong><em>L</em> = (<em>t</em><sub>1</sub> - <em>t</em><sub>2</sub>) · <em>d</em></strong></p>
+        <p class="equation-note">where d is the delay interval of the counter.</p>
+      </div>
+    </div>
+
+    <p>
+      The measurement system principle is intuitive; however, several factors influence this system, including:
+    </p>
+    <ul>
+      <li>the frequency of the numerical timing system</li>
+      <li>the type and frame rate of the VST camera</li>
+      <li>the display screen's refresh rate and method</li>
+      <li>the shutter speed and frame rate of the recording camera</li>
+    </ul>
+
+    <hr />
+    <h2 class="section-head">Contributions</h2>
+    <p>
+      The primary contributions include the implementation of a hardware-based photon-to-photon latency measurement system achieving ±2 ms accuracy, along with an analysis of how these factors interact based on observed phenomena.
+    </p>
+
+    <p><strong>In detail:</strong></p>
+    <ul>
+      <li>Designed, implemented, and validated a hardware-based Photon-to-Photon latency measurement system for XR devices using synchronized global shutter cameras and custom Arduino counters, achieving ±2 ms accuracy.</li>
+      <li>Developed a Flask-based web interface for Raspberry Pi 4B to enable portable, headless operation.</li>
+      <li>Analyzed frequency interactions among Arduino counters, VST cameras, XR displays, and external capture cameras to determine how hardware type and configuration affected measured latency.</li>
+      <li>Conducted latency measurements on Apple Vision Pro and Meta Quest 3, and extended the system to evaluate network-related visual latency, such as round-trip latency via FastRTC over Wi-Fi.</li>
+    </ul>
   </div>
 </body>
 </html>

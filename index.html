@@ -108,6 +108,23 @@
       border: 1px solid #eee;
     }
 
+    .bt-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid #e6ecf4;
+      background: linear-gradient(180deg, #fbfdff 0%, #f7f9fc 100%);
+      box-shadow: 0 8px 20px rgba(32, 55, 96, 0.08);
+    }
+    .bt-stack img {
+      width: 100%;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid #e8edf5;
+    }
+
     .media-ph {
       width: 100%;
       aspect-ratio: 16 / 10;
@@ -259,8 +276,9 @@
       <!-- 2. Ericsson -->
       <div class="proj-item">
         <div class="proj-media">
-          <!-- Replace with: <img src="ericsson.jpg" alt="Ericsson latency system"> -->
-          <div class="media-ph">IMAGE PLACEHOLDER</div>
+          <div class="bt-stack">
+            <img src="Files/Pics/LatencyMeasure/sys.png" alt="Ericsson latency measurement system" />
+          </div>
         </div>
         <div class="proj-info">
           <div class="proj-header">
@@ -307,10 +325,10 @@
       <!-- 4. Bachelor Thesis -->
       <div class="proj-item">
         <div class="proj-media">
-          <div style="display:flex;flex-direction:column;border-radius:6px;overflow:hidden;border:1px solid #eee;">
-            <img src="Files/Pics/BachelorThesis/zhedie1.png" alt="Folded optics structure" style="width:100%;display:block;" />
-            <img src="Files/Pics/BachelorThesis/shiji.png" alt="CLC reflector" style="width:100%;display:block;" />
-            <img src="Files/Pics/BachelorThesis/red.jpg" alt="Optical result" style="width:100%;display:block;" />
+          <div class="bt-stack">
+            <img src="Files/Pics/BachelorThesis/zhedie1.png" alt="Folded optics structure" />
+            <img src="Files/Pics/BachelorThesis/shiji.png" alt="CLC reflector" />
+            <img src="Files/Pics/BachelorThesis/red.jpg" alt="Optical result" />
           </div>
         </div>
         <div class="proj-info">
