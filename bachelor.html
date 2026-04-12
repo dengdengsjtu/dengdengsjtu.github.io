@@ -7,19 +7,200 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #fff; color: #333; font-size: 15.5px; line-height: 1.65; }
-    .page { max-width: 900px; margin: 0 auto; padding: 52px 28px 100px; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 52px 42px 100px; }
     .back { display: inline-flex; align-items: center; gap: 5px; font-size: 0.88rem; color: #888; text-decoration: none; margin-bottom: 36px; }
     .back:hover { color: #111; }
     .meta { font-size: 0.85rem; color: #999; margin-bottom: 6px; }
     h1 { font-size: 1.5rem; font-weight: 700; color: #111; margin-bottom: 4px; }
-    .subtitle { font-size: 1rem; font-weight: 600; color: #555; margin-bottom: 24px; }
     hr { border: none; border-top: 1px solid #ebebeb; margin: 28px 0; }
     .section-head { font-size: 0.95rem; font-weight: 700; color: #111; border-bottom: 2px solid #111; display: inline-block; padding-bottom: 3px; margin-bottom: 20px; }
-    p { font-size: 0.95rem; color: #444; line-height: 1.72; margin-bottom: 16px; max-width: 720px; }
+    p { font-size: 0.95rem; color: #444; line-height: 1.72; margin-bottom: 16px; }
     .link-row { display: flex; gap: 10px; flex-wrap: wrap; }
     .link-row a { font-size: 0.85rem; color: #1a73e8; text-decoration: none; padding: 4px 13px; border: 1px solid #c0d8f8; border-radius: 4px; transition: background 0.15s; }
     .link-row a:hover { background: #eef4ff; }
-    .media-ph { width: 100%; max-width: 680px; aspect-ratio: 16/9; background: #f8f8f8; border: 1px dashed #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: #ccc; letter-spacing: 0.07em; margin-bottom: 28px; }
+    img.fig { border-radius: 6px; border: 1px solid #eee; display: block; }
+
+    /* Background section: staged flow with accent styling */
+    .bg-showcase {
+      position: relative;
+      margin: 24px 0;
+      padding: 22px;
+      border: 1px solid #e9eef5;
+      border-radius: 18px;
+      background: linear-gradient(160deg, #fbfdff 0%, #f5f8fc 100%);
+      overflow: hidden;
+    }
+    .bg-showcase::before,
+    .bg-showcase::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .bg-showcase::before {
+      width: 220px;
+      height: 220px;
+      top: -130px;
+      left: -90px;
+      background: radial-gradient(circle, rgba(83, 131, 255, 0.16) 0%, rgba(83, 131, 255, 0) 70%);
+    }
+    .bg-showcase::after {
+      width: 220px;
+      height: 220px;
+      right: -90px;
+      bottom: -130px;
+      background: radial-gradient(circle, rgba(32, 196, 162, 0.16) 0%, rgba(32, 196, 162, 0) 70%);
+    }
+    .bg-pair { display: flex; align-items: flex-start; gap: 32px; margin: 14px 0; flex-wrap: wrap; position: relative; z-index: 1; }
+    .bg-pair img { width: 340px; flex-shrink: 0; border-radius: 10px; border: 1px solid #e7edf5; box-shadow: 0 10px 24px rgba(45, 73, 113, 0.09); }
+    .bg-pair .bg-desc { flex: 1; min-width: 200px; }
+    .bg-pair .bg-label { font-weight: 700; color: #111; font-size: 0.97rem; margin-bottom: 6px; }
+    .bg-pair .bg-stats { font-size: 0.9rem; color: #555; line-height: 1.8; }
+
+    .bg-pair.bg-bottom { margin-top: 4px; justify-content: flex-end; }
+    .bg-pair.bg-bottom .bg-desc { text-align: right; }
+
+    /* multi-loop arrow between the two pairs */
+    .bg-arrow { display: flex; justify-content: center; margin: 8px 0 4px; position: relative; z-index: 1; }
+    .bg-arrow svg { filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.08)); }
+
+    /* CLC centred figures */
+    .fig-center { display: flex; flex-direction: column; align-items: center; margin: 24px 0; }
+    .fab-arrow-row { display: flex; align-items: center; gap: 14px; margin: 12px 0; }
+    .fab-arrow-label { font-size: 0.88rem; color: #555; font-style: italic; max-width: 480px; }
+    .figure-title {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: #222;
+      text-align: center;
+      margin: 0 0 10px;
+      line-height: 1.45;
+    }
+    .figure-title.after {
+      margin: 10px 0 0;
+    }
+    .clc-showcase {
+      position: relative;
+      margin: 24px 0;
+      padding: 22px;
+      border: 1px solid #e9eef5;
+      border-radius: 18px;
+      background: linear-gradient(160deg, #fcfdff 0%, #f4f8fd 100%);
+      overflow: hidden;
+    }
+    .clc-showcase::before,
+    .clc-showcase::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .clc-showcase::before {
+      width: 180px;
+      height: 180px;
+      top: -100px;
+      left: -70px;
+      background: radial-gradient(circle, rgba(81, 139, 255, 0.14) 0%, rgba(81, 139, 255, 0) 72%);
+    }
+    .clc-showcase::after {
+      width: 180px;
+      height: 180px;
+      right: -70px;
+      bottom: -100px;
+      background: radial-gradient(circle, rgba(24, 188, 153, 0.14) 0%, rgba(24, 188, 153, 0) 72%);
+    }
+    .clc-showcase > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .construction-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 12px 0 20px;
+      width: 100%;
+    }
+    .construction-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border: 1px solid #e8edf4;
+      border-radius: 12px;
+      background: #fbfcfe;
+    }
+    .point-id {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0f4ea8;
+      background: #dceaff;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .point-text { margin: 0; }
+
+    .imaging-notes p {
+      margin-bottom: 6px;
+      line-height: 1.55;
+    }
+
+    .analysis-note {
+      font-size: 0.92rem;
+      color: #555;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    .analysis-grid {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      margin: 14px 0 20px;
+    }
+    .analysis-item {
+      width: 31%;
+      min-width: 160px;
+      text-align: center;
+    }
+    .analysis-item img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #e6e6e6;
+      display: block;
+    }
+    .analysis-item .cap {
+      font-size: 0.84rem;
+      color: #555;
+      margin-top: 6px;
+    }
+    .analysis-grid-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #222;
+      text-align: center;
+      line-height: 1.5;
+      margin: 8px 0 12px;
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 42px 5vw 84px; }
+      .bg-showcase { padding: 14px; }
+      .bg-pair img { width: 100%; }
+      .bg-pair.bg-bottom .bg-desc { text-align: left; }
+      .bg-pair.bg-bottom { justify-content: flex-start; }
+      .bg-arrow { margin: 6px 0 10px; }
+      .clc-showcase { padding: 14px; }
+      .analysis-grid { flex-wrap: wrap; }
+      .analysis-item { width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -29,19 +210,135 @@
     <p class="meta">Bachelor Thesis &nbsp;|&nbsp; 11/2023 – 05/2024</p>
     <h1>High-efficiency Folded Optics for Near-eye Displays</h1>
 
-    <!-- Stacked thesis images -->
-    <div style="display:flex;flex-direction:column;border-radius:8px;overflow:hidden;border:1px solid #eee;max-width:360px;margin-bottom:28px;">
-      <img src="Files/Pics/BachelorThesis/zhedie1.png" alt="Folded optics structure" style="width:100%;display:block;" />
-      <img src="Files/Pics/BachelorThesis/shiji.png" alt="CLC reflector" style="width:100%;display:block;" />
-      <img src="Files/Pics/BachelorThesis/red.jpg" alt="Optical result" style="width:100%;display:block;" />
+    <hr />
+    <h2 class="section-head">Background</h2>
+    <p>
+      The optical display performance of near-eye display systems is mainly related to the focal length of the optical components, that is, the distance between the display panel and the focusing element. A longer distance generally leads to better performance, but it also means an increase in the overall size of the display system.
+    </p>
+    <p>
+      For near-eye display systems such as AR and VR glasses, we aim to achieve high optical performance. However, for the sake of comfort and portability, we also want to minimize the device size, reduce its weight, and lower power consumption.
+    </p>
+
+    <div class="bg-showcase">
+      <!-- Traditional Pancake: image left, text right -->
+      <div class="bg-pair">
+        <img src="Files/Pics/BachelorThesis/pancake.png" alt="Traditional Pancake structure" />
+        <div class="bg-desc">
+          <p class="bg-label">Traditional Pancake structure</p>
+          <p class="bg-stats">3× optical path length<br>25% of the theoretical maximum optical efficiency</p>
+        </div>
+      </div>
+
+      <!-- Curved multi-loop arrow pointing toward the lower-right -->
+      <div class="bg-arrow">
+        <svg width="360" height="112" viewBox="0 0 360 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 20 C62 10, 86 28, 114 44 C140 58, 172 64, 176 44 C180 20, 146 18, 146 44 C146 70, 208 72, 246 70 C278 68, 308 80, 336 102"
+            stroke="#d6dfeb" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.42"/>
+          <path d="M24 20 C62 10, 86 28, 114 44 C140 58, 172 64, 176 44 C180 20, 146 18, 146 44 C146 70, 208 72, 246 70 C278 68, 308 80, 336 102"
+            stroke="#728caf" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Improved design: text left, image right -->
+      <div class="bg-pair bg-bottom">
+        <div class="bg-desc">
+          <p class="bg-label">Proposed Pancake structure</p>
+          <p class="bg-stats">2× optical path length<br>50% of the theoretical maximum optical efficiency</p>
+        </div>
+        <img src="Files/Pics/BachelorThesis/zhedie1.png" alt="Improved Pancake architecture" />
+      </div>
     </div>
 
     <hr />
-    <h2 class="section-head">Overview</h2>
+    <h2 class="section-head">CLC Elements</h2>
     <p>
-      Pancake lens structure offers a promising path to compact near-eye displays, but the use of a half-mirror to triple the optical path length limits the theoretical maximum efficiency to 25%. To reduce power consumption and battery weight, we propose a folded optical structure using two polarization-selective cholesteric liquid-crystal reflectors, achieving 50% optical efficiency with a doubled optical path length.
+      As you can see in the improved Pancake architecture we designed, we use CLC elements to design the reflective layer.
     </p>
-    <p>More details coming soon.</p>
+    <p>
+      The CLC element reflects circularly polarized light matching its chiral handedness within the reflection bandwidth, while transmitting circularly polarized light with the opposite handedness. The polarization state of both reflected and transmitted light remains unchanged.
+    </p>
+
+    <div class="fig-center clc-showcase">
+      <p class="figure-title">Fabrication steps of the CLC element</p>
+      <img src="Files/Pics/BachelorThesis/process.png" alt="Fabrication process" class="fig" style="max-width:660px;width:100%;" />
+
+      <div class="fab-arrow-row">
+        <svg width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="12" y1="0" x2="12" y2="30" stroke="#888" stroke-width="2"/>
+          <polyline points="5,24 12,34 19,24" stroke="#888" stroke-width="2" fill="none" stroke-linejoin="round"/>
+        </svg>
+        <span class="fab-arrow-label">After many attempts and improvements, these are the final CLC elements used in the folded optical system.</span>
+      </div>
+
+      <p class="figure-title after">CLC elements</p>
+      <img src="Files/Pics/BachelorThesis/CLC_made.png" alt="Fabricated CLC element" class="fig" style="max-width:320px;width:100%;" />
+    </div>
+
+    <hr />
+    <h2 class="section-head">Construction of the Folded Optical System</h2>
+    <p>The following considerations are taken into account in the practical construction of the folded optical system:</p>
+    <ul class="construction-list">
+      <li>
+        <span class="point-id">1</span>
+        <p class="point-text">To facilitate the evaluation of experimental results, the experimental setup is scaled up to simplify construction and measurement.</p>
+      </li>
+      <li>
+        <span class="point-id">2</span>
+        <p class="point-text">Considering the impact of chromatic aberration on the results, this experiment focuses on implementing an imaging system using three monochromatic channels: red, green, and blue.</p>
+      </li>
+    </ul>
+    <div class="fig-center">
+      <img src="Files/Pics/BachelorThesis/shiji.png" alt="Experimental setup" class="fig" style="max-width:760px;width:100%;" />
+    </div>
+
+    <hr />
+    <h2 class="section-head">Folded Optical Path Imaging</h2>
+    <div class="imaging-notes">
+      <p>The left images show imaging of the original light source.</p>
+      <p>The middle images show imaging using the corresponding color CLC elements.</p>
+      <p>The right images show the imaging results when the two optical paths are not properly aligned.</p>
+    </div>
+    <div class="fig-center">
+      <img src="Files/Pics/BachelorThesis/Allimaging.jpg" alt="Folded optical path imaging results" class="fig" style="max-width:460px;width:100%;" />
+    </div>
+
+    <hr />
+    <h2 class="section-head">Analysis</h2>
+    <p class="analysis-note">The percentage assumptions are based on measured optical efficiency.</p>
+    <p>
+      The CLC elements are assumed to have a reflectivity of 80% and a transmittance of 20%. In addition, all transmitted light experiences a 10% loss. Based on these parameters, the light loss analysis is illustrated below.
+    </p>
+    <div class="fig-center">
+      <p class="figure-title">Light loss analysis</p>
+      <img src="Files/Pics/BachelorThesis/glass.png" alt="Light loss analysis" class="fig" style="max-width:520px;width:100%;" />
+    </div>
+
+    <p>
+      From the resulting images, it can be observed that when the two optical paths are not properly aligned, the intensities of the two small "D" images are approximately equal, which verifies the validity of the proposed folded optical design.
+    </p>
+    <p>
+      An OLED smartphone display is used as the light source, with RGB grayscale values of (255, 0, 0), (0, 255, 0), and (0, 0, 255). However, the measured emission spectra are not monochromatic and exhibit finite bandwidths. A comparison between the normalized RGB spectra of the display and the transmission spectra of the corresponding CLC elements shows that a significant portion of light is still transmitted.
+    </p>
+
+    <p class="analysis-grid-title">Comparison between the normalized RGB spectra of the display and the transmission spectra of the corresponding CLC elements</p>
+    <div class="analysis-grid">
+      <div class="analysis-item">
+        <img src="Files/Pics/BachelorThesis/iphone_CLC_b.png" alt="Blue channel and CLC comparison" />
+        <p class="cap">(a) blue</p>
+      </div>
+      <div class="analysis-item">
+        <img src="Files/Pics/BachelorThesis/iphone_CLC_g.png" alt="Green channel and CLC comparison" />
+        <p class="cap">(b) green</p>
+      </div>
+      <div class="analysis-item">
+        <img src="Files/Pics/BachelorThesis/iphone_CLC_r.png" alt="Red channel and CLC comparison" />
+        <p class="cap">(c) red</p>
+      </div>
+    </div>
+
+    <p>
+      As a result, transmission leads to a brighter large "D" in the imaging results. Nevertheless, the brightness ratio between the large "D" and the small "D" remains within a reasonable range.
+    </p>
 
     <hr />
     <h2 class="section-head">Links</h2>
