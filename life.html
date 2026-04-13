@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Beyond the Work – Yuqian</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -35,12 +41,36 @@
     .page-title {
       font-size: 1.4rem;
       font-weight: 700;
-      color: #111;
-      padding-bottom: 5px;
-      border-bottom: 2px solid #111;
-      display: block;
-      text-align: center;
-      margin-bottom: 48px;
+      color: #7a2f13;
+      margin: 0;
+    }
+
+    .page-hero {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 42px;
+    }
+    .hero-headline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(90deg, #fff6ea 0%, #fff1f5 100%);
+      border: 1px solid #f0d7e2;
+      border-radius: 999px;
+      padding: 7px 12px 7px 16px;
+      box-shadow: 0 2px 10px rgba(179, 120, 87, 0.12);
+    }
+    .hero-share {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 10px;
+      border-left: 1px solid #edd4de;
+    }
+    .hero-share .label {
+      font-size: 0.82rem;
+      color: #7c5d69;
+      white-space: nowrap;
     }
 
     /* ── Section cards ── */
@@ -58,11 +88,47 @@
       margin-bottom: 12px;
     }
 
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .title-row .btw-title {
+      margin-bottom: 0;
+    }
     .btw-body {
       font-size: 0.97rem;
       color: #555;
       line-height: 1.75;
       max-width: 700px;
+    }
+
+    .icon-link {
+      font-size: 1.15rem;
+      color: #555;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #e0e0e0;
+      text-decoration: none;
+    }
+    .icon-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      text-decoration: none;
+    }
+    .icon-link.bili {
+      color: #00a1d6;
+    }
+    .hero-share .icon-link {
+      background: #ffffff;
+      border-color: #cfe9f2;
     }
 
     /* ── Sketch strip ── */
@@ -85,6 +151,8 @@
     .sketch-item:hover { transform: translateY(-4px) scale(1.15); }
 
     @media (max-width: 560px) {
+      .hero-headline { flex-wrap: wrap; justify-content: center; border-radius: 16px; }
+      .hero-share { border-left: none; padding-left: 0; }
       .sketch-strip { gap: 10px; justify-content: center; }
       .sketch-item { font-size: 1.6rem; }
     }
@@ -95,7 +163,15 @@
 
     <a href="index.html" class="back-link">← Back</a>
 
-    <h1 class="page-title">Beyond the Work</h1>
+    <div class="page-hero">
+      <div class="hero-headline">
+        <h1 class="page-title">Beyond the Work</h1>
+        <div class="hero-share">
+        <span class="label">Life snippets and random videos</span>
+        <a href="https://space.bilibili.com/1184683882" target="_blank" rel="noopener noreferrer" class="icon-link bili" title="Bilibili"><i class="fa-brands fa-bilibili"></i></a>
+        </div>
+      </div>
+    </div>
 
     <!-- Sports -->
     <div class="btw-card">
@@ -121,7 +197,9 @@
 
     <!-- Exploration -->
     <div class="btw-card">
-      <h2 class="btw-title"><span style="background:linear-gradient(90deg,#c0143c,#7b1fa2,#0d47a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Exploring, Eating, Seeing</span></h2>
+      <div class="title-row">
+        <h2 class="btw-title"><span style="background:linear-gradient(90deg,#c0143c,#7b1fa2,#0d47a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Exploring, Eating, Seeing</span></h2>
+      </div>
       <p class="btw-body">
         I also enjoy exploring cities, nature, and local activities. I am always looking
         for new things to do and I like trying out new experiences.

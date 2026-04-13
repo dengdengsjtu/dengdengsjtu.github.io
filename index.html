@@ -12,6 +12,7 @@
   />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -34,6 +35,95 @@
       margin-bottom: 36px;
     }
 
+    .section-catalog {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 1000;
+      min-width: 192px;
+      border: 1px solid #dfe6f3;
+      border-radius: 10px;
+      padding: 9px;
+      background: rgba(252, 253, 255, 0.94);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 8px 18px rgba(32, 55, 96, 0.12);
+    }
+    .section-catalog .catalog-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .section-catalog .catalog-list a {
+      position: relative;
+      font-size: 0.8rem;
+      color: #2a3750;
+      text-decoration: none;
+      padding: 6px 8px 6px 24px;
+      border-radius: 7px;
+      display: block;
+      border: 1px solid transparent;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+    }
+    .section-catalog .catalog-list a::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    .section-catalog .catalog-list li:nth-child(1) a::before { background: #9fd9a7; }
+    .section-catalog .catalog-list li:nth-child(2) a::before { background: #6fc87f; }
+    .section-catalog .catalog-list li:nth-child(3) a::before { background: #43ad58; }
+    .section-catalog .catalog-list li:nth-child(4) a::before { background: #1f7e39; }
+    .section-catalog .catalog-list li:nth-child(1) a:hover {
+      background: #f1fced;
+      color: #5f8f2f;
+      border-color: #dff3d1;
+      transform: translateX(2px);
+    }
+    .section-catalog .catalog-list li:nth-child(1) a.active {
+      background: #f1fced;
+      color: #5f8f2f;
+      border-color: #dff3d1;
+    }
+    .section-catalog .catalog-list li:nth-child(2) a:hover {
+      background: #dcf4df;
+      color: #2f8a3d;
+      border-color: #bfe6c6;
+      transform: translateX(2px);
+    }
+    .section-catalog .catalog-list li:nth-child(2) a.active {
+      background: #dcf4df;
+      color: #2f8a3d;
+      border-color: #bfe6c6;
+    }
+    .section-catalog .catalog-list li:nth-child(3) a:hover {
+      background: #c7ebce;
+      color: #1f6a33;
+      border-color: #9fd7aa;
+      transform: translateX(2px);
+    }
+    .section-catalog .catalog-list li:nth-child(3) a.active {
+      background: #c7ebce;
+      color: #1f6a33;
+      border-color: #9fd7aa;
+    }
+    .section-catalog .catalog-list li:nth-child(4) a:hover {
+      background: #a8d9b2;
+      color: #0f4f28;
+      border-color: #78be89;
+      transform: translateX(2px);
+    }
+    .section-catalog .catalog-list li:nth-child(4) a.active {
+      background: #a8d9b2;
+      color: #0f4f28;
+      border-color: #78be89;
+    }
+
     .avatar {
       width: 140px;
       height: 140px;
@@ -49,6 +139,70 @@
       color: #111;
       margin-bottom: 8px;
     }
+    .status-note {
+      display: inline-block;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #4a5b56;
+      background: rgba(255, 255, 255, 0.8);
+      border: 2.5px dashed #8fc9a0;
+      border-radius: 999px;
+      padding: 7px 14px;
+      white-space: nowrap;
+      font-style: italic;
+      position: relative;
+      transform: rotate(-1deg);
+      box-shadow: 0 3px 10px rgba(90, 104, 128, 0.12);
+      animation: statusFloat 4.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+    .status-note::before,
+    .status-note::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(44, 120, 79, 0.22);
+    }
+    .status-note::before {
+      width: 10px;
+      height: 10px;
+      left: -34px;
+      bottom: 11px;
+      background: #9fd7aa;
+      border: 1px solid #7dc48d;
+    }
+    .status-note::after {
+      width: 7px;
+      height: 7px;
+      left: -49px;
+      bottom: 3px;
+      background: #c6ebcd;
+      border: 1px solid #a8dbb4;
+    }
+    .status-note .dot-third {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: -19px;
+      bottom: 18px;
+      border-radius: 50%;
+      background: #7fcf91;
+      border: 1px solid #63ba78;
+      box-shadow: 0 1px 4px rgba(44, 120, 79, 0.24);
+    }
+    .status-mid {
+      align-self: center;
+      margin: 0 10px 0 28px;
+    }
+    @keyframes statusFloat {
+      0% { transform: rotate(-1.2deg) translateY(0); box-shadow: 0 3px 10px rgba(90, 104, 128, 0.12); }
+      28% { transform: rotate(-0.6deg) translateY(-2px); box-shadow: 0 6px 14px rgba(90, 104, 128, 0.15); }
+      62% { transform: rotate(-1.4deg) translateY(-1px); box-shadow: 0 4px 12px rgba(90, 104, 128, 0.14); }
+      100% { transform: rotate(-1.2deg) translateY(0); box-shadow: 0 3px 10px rgba(90, 104, 128, 0.12); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .status-note { animation: none; }
+    }
 
     .social-row {
       display: flex;
@@ -63,7 +217,7 @@
     .social-row a { color: #1a73e8; text-decoration: none; }
     .social-row a:hover { text-decoration: underline; }
     .social-row .icon-link:hover { text-decoration: none; }
-    .social-row .icon-link { font-size: 1.15rem; color: #555; transition: color 0.15s, transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid #e0e0e0; text-decoration: none; }
+    .social-row .icon-link { font-size: 1.35rem; color: #555; transition: color 0.15s, transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #e0e0e0; text-decoration: none; }
     .social-row .icon-link:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
     .social-row .icon-link:hover { color: #111; }
     .social-row .icon-link.li:hover  { color: #0a66c2; }
@@ -152,6 +306,23 @@
     }
 
     .proj-org  { font-weight: 700; font-size: 0.97rem; color: #111; }
+    .proj-org.fill-axis,
+    .proj-org.fill-ericsson {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      line-height: 1.25;
+    }
+    .proj-org.fill-axis {
+      background: #e9f4ff;
+      color: #0f4c8a;
+      border: 1px solid #c9def9;
+    }
+    .proj-org.fill-ericsson {
+      background: #edf8ef;
+      color: #1f6a33;
+      border: 1px solid #cde7d4;
+    }
     .proj-date { font-size: 0.85rem; color: #999; white-space: nowrap; }
 
     .proj-subtitle {
@@ -159,6 +330,18 @@
       font-weight: 600;
       color: #444;
       margin-bottom: 8px;
+    }
+
+    .proj-skills {
+      font-size: 0.8rem;
+      color: #555;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .proj-skills .label {
+      font-weight: 700;
+      color: #333;
+      margin-right: 6px;
     }
 
     .proj-scene {
@@ -189,6 +372,23 @@
     .edu-item {}
     .edu-header { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; margin-bottom: 3px; }
     .edu-school { font-weight: 700; font-size: 0.97rem; color: #111; }
+    .edu-school.fill-lund,
+    .edu-school.fill-sjtu {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      line-height: 1.25;
+    }
+    .edu-school.fill-lund {
+      background: #fff7eb;
+      color: #99611a;
+      border: 1px solid #f7e4c9;
+    }
+    .edu-school.fill-sjtu {
+      background: #fdf1f5;
+      color: #9b3b5d;
+      border: 1px solid #f5d9e3;
+    }
     .edu-location { font-size: 0.85rem; color: #999; }
     .edu-date { font-size: 0.85rem; color: #999; margin-left: auto; white-space: nowrap; }
     .edu-degree { font-size: 0.92rem; color: #444; margin-bottom: 3px; }
@@ -196,6 +396,17 @@
     .edu-degree a:visited { color: #7b1fa2; }
     .edu-degree a:hover { text-decoration: underline; }
     .edu-courses { font-size: 0.85rem; color: #777; line-height: 1.55; }
+
+    .skills-block { display: flex; flex-direction: column; gap: 8px; margin-bottom: 0; }
+    .skills-item {
+      font-size: 0.92rem;
+      color: #444;
+      line-height: 1.65;
+    }
+    .skills-item .label {
+      font-weight: 700;
+      color: #222;
+    }
 
     /* ── Biography ── */
     .bio-block p {
@@ -210,7 +421,12 @@
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .profile { flex-direction: column; align-items: center; text-align: center; }
+      .status-note { white-space: normal; }
+      .status-mid { margin: 6px 0 2px; }
       .social-row { justify-content: center; }
+      .section-catalog { top: 8px; right: 8px; min-width: 166px; padding: 7px; }
+      .section-catalog .catalog-list a { font-size: 0.75rem; padding: 5px 7px 5px 21px; }
+      .section-catalog .catalog-list a::before { left: 7px; width: 7px; height: 7px; }
       .proj-item { flex-direction: column; }
       .proj-media { width: 100%; }
       .proj-header { flex-direction: column; }
@@ -234,18 +450,22 @@
           <span class="sep">/</span>
           <a href="https://github.com/dengdengsjtu" target="_blank" rel="noopener noreferrer" class="icon-link gh" title="GitHub"><i class="fab fa-github"></i></a>
         </div>
-        <div class="intro">
-          <p>I am pursuing my Master's degree in the VR/AR programme at Lund University.</p>
-          <p>Currently, I am a Master Thesis student at Axis Communications.</p>
-          <p>Previously, I received my Bachelor's degree in Electronic Science and Technology from Shanghai Jiao Tong University.</p>
-        </div>
       </div>
+      <span class="status-note status-mid"><span class="dot-third" aria-hidden="true"></span>Doing my Master&rsquo;s thesis at Axis / LTH<br />Open to work &mdash; happy to connect!</span>
+      <nav class="section-catalog" aria-label="Section catalog">
+        <ul class="catalog-list">
+          <li><a href="#projects">Working Experience / Projects</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#biography">Biography</a></li>
+        </ul>
+      </nav>
     </div>
 
     <hr />
 
     <!-- ── Working Experience / Projects ── -->
-    <h2 class="sec-head">Working Experience / Projects</h2>
+    <h2 class="sec-head" id="projects">Working Experience / Projects</h2>
 
     <div class="proj-list">
 
@@ -253,14 +473,15 @@
       <div class="proj-item">
         <div class="proj-media">
           <!-- Replace with: <video src="axis-demo.mp4" autoplay loop muted playsinline></video> -->
-          <div class="media-ph">VIDEO PLACEHOLDER</div>
+          <div class="media-ph">Waiting for updating</div>
         </div>
         <div class="proj-info">
           <div class="proj-header">
-            <span class="proj-org">Axis Communications &mdash; Master Thesis Student</span>
+            <span class="proj-org fill-axis">Axis Communications &mdash; Master Thesis Student</span>
             <span class="proj-date">01/2026 &ndash; Present</span>
           </div>
           <p class="proj-subtitle">4D Gaussian Splatting</p>
+          <p class="proj-skills"><span class="label">Skills:</span>Python, Docker, Unreal Engine, CUDA, COLMAP</p>
           <p class="proj-scene">
             Imagine moving around in a room while multiple cameras capture your motion. With an all-in-one UI and a streamlined pipeline, you simply click, and after a reasonable processing time, you can replay your movements from a novel viewpoint inside a VR headset. This project explores dynamic scene reconstruction using Gaussian Splatting methods.
           </p>
@@ -282,10 +503,11 @@
         </div>
         <div class="proj-info">
           <div class="proj-header">
-            <span class="proj-org">Ericsson &mdash; R&amp;D Summer Internship</span>
+            <span class="proj-org fill-ericsson">Ericsson &mdash; R&amp;D Summer Internship</span>
             <span class="proj-date">06/2025 &ndash; 08/2025</span>
           </div>
-          <p class="proj-subtitle">Latency Measurement System for XR Devices</p>
+          <p class="proj-subtitle">Photon-to-Photon Latency Measurement System for XR Devices</p>
+          <p class="proj-skills"><span class="label">Skills:</span>Arduino, Raspberry Pi, 3D printing, hands-on prototyping, technical research</p>
           <p class="proj-scene">
             Measuring visual latency of VR and AR devices is important for
             evaluating system performance across different communication methods.
@@ -305,6 +527,7 @@
             <span class="proj-org">An Interactive AR Mockup Model</span>
             <span class="proj-date">09/2025 &ndash; 12/2025</span>
           </div>
+          <p class="proj-skills"><span class="label">Skills:</span>C#, Unity, HoloLens 2, MRTK3</p>
           <p class="proj-scene">
             Imagine planning surveillance camera placements in a space and wanting to
             evaluate coverage before any physical installation. 
@@ -313,6 +536,7 @@
             They then place, operate, and adjust virtual cameras together. 
             Finally, they observe live simulated camera streams to assess 
             whether the placement sufficiently covers the target walking route and make further adjustments if needed.
+          </p>
           <p class="proj-links">
             <a href="Files/Papers/AR_mockup_model.pdf" target="_blank">Report</a>
             <a href="https://youtu.be/-6iGkGBC-1c?si=waBgBroxo2z-doNt" target="_blank" rel="noopener noreferrer">Video</a>
@@ -351,12 +575,12 @@
     <hr />
 
     <!-- ── Education ── -->
-    <h2 class="sec-head">Education</h2>
+    <h2 class="sec-head" id="education">Education</h2>
 
     <div class="edu-block">
       <div class="edu-item">
         <div class="edu-header">
-          <span class="edu-school">Lund University</span>
+          <span class="edu-school fill-lund">Lund University</span>
           <span class="edu-location">Sweden</span>
           <span class="edu-date">2024 &ndash; Expected 06/2026</span>
         </div>
@@ -365,7 +589,7 @@
       </div>
       <div class="edu-item">
         <div class="edu-header">
-          <span class="edu-school">Shanghai Jiao Tong University</span>
+          <span class="edu-school fill-sjtu">Shanghai Jiao Tong University</span>
           <span class="edu-location">China</span>
           <span class="edu-date">2020 &ndash; 2024</span>
         </div>
@@ -376,13 +600,25 @@
 
     <hr />
 
+    <!-- ── Skills ── -->
+    <h2 class="sec-head" id="skills">Skills</h2>
+
+    <div class="skills-block">
+      <p class="skills-item"><span class="label">Programming:</span> Python, C++, C#, MATLAB</p>
+      <p class="skills-item"><span class="label">Professional Tools:</span> Unity, Unreal Engine, Git, Copilot, Docker, Shell, Arduino, OpenCV, ComfyUI, Blender, SolidWorks, AutoCAD, Figma, Altium Designer</p>
+      <p class="skills-item"><span class="label">Languages:</span> English (Fluent), Mandarin (Native)</p>
+    </div><!-- /.skills-block -->
+
+    <hr />
+
     <!-- ── Biography ── -->
-    <h2 class="sec-head">Biography</h2>
+    <h2 class="sec-head" id="biography">Biography</h2>
 
     <div class="bio-block">
       <p>
-        I love breaking a challenging project into small, executable, day-by-day tasks,
-        and I enjoy exploring new technologies and tools.
+        I enjoy continuous learning through solving challenging problems.
+        I love breaking complex projects into small, executable, day-by-day tasks, and exploring new technologies and tools.
+        I like taking ownership of my work while also collaborating closely with others.
       </p>
       <p>
         Outside of study and work, I am passionate about sports and experiencing new things.
@@ -391,5 +627,56 @@
     </div><!-- /.bio-block -->
 
   </div><!-- /.page -->
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll('.section-catalog .catalog-list a'));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      function setActiveById(id) {
+        links.forEach((link) => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+
+      let ticking = false;
+      function updateActiveByScroll() {
+        const marker = window.innerHeight * 0.28;
+        let activeSection = sections[0];
+
+        for (let i = 0; i < sections.length; i++) {
+          const top = sections[i].getBoundingClientRect().top;
+          if (top <= marker) {
+            activeSection = sections[i];
+          } else {
+            break;
+          }
+        }
+
+        if (activeSection && activeSection.id) {
+          setActiveById(activeSection.id);
+        }
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            updateActiveByScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      window.addEventListener('hashchange', function () {
+        window.setTimeout(updateActiveByScroll, 60);
+      });
+
+      updateActiveByScroll();
+    })();
+  </script>
 </body>
 </html>
