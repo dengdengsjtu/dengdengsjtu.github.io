@@ -157,68 +157,60 @@
       .sketch-item { font-size: 1.6rem; }
     }
 
-    /* ── Visitor corner widget ── */
-    .visitor-corner {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      width: 152px;
-      background: rgba(255, 255, 255, 0.97);
-      border: 1px solid #dce3e0;
-      border-radius: 12px;
-      padding: 10px 11px 11px;
-      box-shadow: 0 3px 16px rgba(0, 0, 0, 0.10);
+    /* ── Visitors panel ── */
+    .visitor-panel {
+      --visitor-box-width: 150px;
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: center;
+      gap: 12px;
+      align-items: stretch;
+      margin: 2px auto 4px;
+      max-width: 360px;
+    }
+    .vc-card {
+      border: 1px solid #e3ebe8;
+      border-radius: 10px;
+      background: #ffffff;
+      width: var(--visitor-box-width);
+      padding: 14px 14px 12px;
       text-align: center;
-      backdrop-filter: blur(6px);
     }
-    .visitor-corner .vc-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.07em;
+    .vc-title {
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #aaa;
-      margin-bottom: 7px;
+      color: #9fa9a5;
+      margin-bottom: 6px;
     }
-    .visitor-corner .vc-count {
-      font-size: 1.3rem;
+    .vc-count {
+      font-size: 1.65rem;
       font-weight: 700;
       color: #2d7a5f;
-      letter-spacing: 0.01em;
-      margin-bottom: 8px;
+      line-height: 1.1;
     }
-    .visitor-corner .vc-count-label {
-      font-size: 0.62rem;
-      color: #bbb;
-      margin-top: 1px;
-      margin-bottom: 8px;
-    }
-    .visitor-corner .vc-map {
-      margin-top: 8px;
-      border-radius: 7px;
+    .vc-map {
+      width: var(--visitor-box-width);
+      justify-self: end;
+      border: 1px solid #e8ecea;
+      border-radius: 8px;
       overflow: hidden;
       line-height: 0;
-      border: 1px solid #e8ecea;
+      background: #fff;
     }
-    .visitor-corner .vc-map a img {
+    .vc-map img {
       display: block;
       width: 100%;
       height: auto;
-    }
-    .visitor-corner .vc-map-placeholder {
-      font-size: 0.62rem;
-      color: #c5c5c5;
-      padding: 8px 4px 7px;
-      line-height: 1.5;
-    }
-    .visitor-corner .vc-map-placeholder a {
-      color: #8fc9a0;
-      text-decoration: none;
-    }
-    .visitor-corner .vc-map-placeholder a:hover {
-      text-decoration: underline;
+      pointer-events: none;
+      user-select: none;
     }
     @media (max-width: 560px) {
-      .visitor-corner { bottom: 12px; right: 12px; width: 132px; }
+      .visitor-panel {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+      }
+      .vc-map { justify-self: center; }
     }
   </style>
 </head>
@@ -276,26 +268,47 @@
       </div>
     </div><!-- /.btw-card -->
 
+    <div class="visitor-panel">
+      <div class="vc-card">
+        <div class="vc-title">Total Visits</div>
+        <div class="vc-count"><span id="vc-count">0</span></div>
+      </div>
+      <div class="vc-map" aria-label="Visitor map preview">
+        <img src="https://mapmyvisitors.com/map.png?d=t5wWwP9IE6eY4pYj228UJl_JboTj_T_CPqJzbhE5KBk&cl=ffffff" alt="Visitor map" />
+      </div>
+    </div>
+
   </div><!-- /.container -->
 
-  <div class="visitor-corner">
-    <div class="vc-count"><span id="vc-count">–</span></div>
-    <div class="vc-count-label">total visits</div>
-    <div class="vc-map">
-      <img src="https://mapmyvisitors.com/map.png?d=t5wWwP9IE6eY4pYj228UJl_JboTj_T_CPqJzbhE5KBk&cl=ffffff" alt="Visitor map" style="pointer-events:none;" />
-    </div>
-  </div>
-
   <script>
-    fetch('https://api.countapi.xyz/hit/dengdengsjtu.github.io/visits')
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        var el = document.getElementById('vc-count');
-        if (el && data && data.value != null) {
-          el.textContent = data.value.toLocaleString();
-        }
-      })
-      .catch(function(){});
+    (function () {
+      var el = document.getElementById('vc-count');
+      if (!el) return;
+
+      var cacheKey = 'lifePageVisitCountCache';
+      var cachedValue = window.localStorage.getItem(cacheKey);
+      if (cachedValue && !isNaN(Number(cachedValue))) {
+        el.textContent = Number(cachedValue).toLocaleString();
+      }
+
+      fetch('https://api.countapi.xyz/hit/dengdengsjtu.github.io/visits', { cache: 'no-store' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('Count API failed');
+          return r.json();
+        })
+        .then(function (data) {
+          if (data && data.value != null && !isNaN(Number(data.value))) {
+            var value = Number(data.value);
+            el.textContent = value.toLocaleString();
+            window.localStorage.setItem(cacheKey, String(value));
+          }
+        })
+        .catch(function () {
+          if (!cachedValue) {
+            el.textContent = '0';
+          }
+        });
+    })();
   </script>
 </body>
 </html>
