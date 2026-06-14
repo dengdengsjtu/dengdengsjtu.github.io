@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4D Gaussian Splatting – Yuqian Deng</title>
+  <title>Streaming Dynamic 3D Scene Reconstruction from Sparse Multi-Camera Video – Yuqian Deng</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #fff; color: #333; font-size: 15.5px; line-height: 1.65; }
     .page { max-width: 1180px; margin: 0 auto; padding: 52px 42px 100px; }
+    .project-content { max-width: 900px; margin: 0 auto; }
     .back { display: inline-flex; align-items: center; gap: 5px; font-size: 0.88rem; color: #888; text-decoration: none; margin-bottom: 36px; }
     .back:hover { color: #111; }
     .meta { font-size: 0.85rem; color: #999; margin-bottom: 6px; }
-    h1 { font-size: 1.5rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    h1 { font-size: 1.5rem; font-weight: 700; color: #111; line-height: 1.35; margin-bottom: 22px; }
     .subtitle { font-size: 1rem; font-weight: 600; color: #555; margin-bottom: 24px; }
     hr { border: none; border-top: 1px solid #ebebeb; margin: 28px 0; }
     .section-head { font-size: 0.95rem; font-weight: 700; color: #111; border-bottom: 2px solid #111; display: inline-block; padding-bottom: 3px; margin-bottom: 20px; }
@@ -19,32 +20,76 @@
     .link-row { display: flex; gap: 10px; flex-wrap: wrap; }
     .link-row a { font-size: 0.85rem; color: #1a73e8; text-decoration: none; padding: 4px 13px; border: 1px solid #c0d8f8; border-radius: 4px; transition: background 0.15s; }
     .link-row a:hover { background: #eef4ff; }
-    .media-ph { width: 100%; max-width: 680px; aspect-ratio: 16/9; background: #f8f8f8; border: 1px dashed #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: #ccc; letter-spacing: 0.07em; margin-bottom: 28px; }
+    .video-wrap { width: 100%; aspect-ratio: 16/9; margin: 0 auto 30px; border-radius: 8px; overflow: hidden; border: 1px solid #e8e8e8; display: block; }
+    .video-wrap iframe { width: 100%; height: 100%; display: block; border: none; }
+    .detail-list { margin: 0 0 18px 20px; color: #444; }
+    .detail-list > li { margin-bottom: 18px; padding-left: 8px; line-height: 1.68; }
+    .detail-list > li::marker { font-weight: 700; color: #111; }
+    .detail-list strong { display: block; color: #222; font-size: 0.96rem; font-weight: 700; margin-bottom: 4px; }
+    .detail-list p { margin: 0; color: #555; font-size: 0.92rem; line-height: 1.68; }
+    .detail-list ul { margin: 6px 0 8px 18px; color: #555; }
+    .detail-list ul li { margin-bottom: 2px; padding-left: 2px; font-size: 0.9rem; line-height: 1.55; }
+    @media (max-width: 640px) {
+      .page { padding: 42px 5vw 84px; }
+      h1 { font-size: 1.34rem; }
+      .detail-list { margin-left: 18px; }
+      .detail-list > li { padding-left: 4px; }
+    }
   </style>
 </head>
 <body>
   <div class="page">
     <a href="index.html" class="back">&#8592; Back</a>
+    <main class="project-content">
 
     <p class="meta">Axis Communications &mdash; Master Thesis &nbsp;|&nbsp; 01/2026 – Present &nbsp;|&nbsp; Lund, Sweden</p>
-    <h1>4D Gaussian Splatting</h1>
+    <h1>Streaming Dynamic 3D Scene Reconstruction from Sparse Multi-Camera Video</h1>
 
-    <!-- Replace with real video when available -->
-    <div class="media-ph">Waiting for updating</div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/yCnkC5v3gv0" title="Streaming Dynamic 3D Scene Reconstruction from Sparse Multi-Camera Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
 
     <hr />
     <h2 class="section-head">Overview</h2>
     <p>
-      Imagine moving around in a room while multiple cameras capture your motion. With an all-in-one UI and a streamlined pipeline, you simply click, and after a reasonable processing time, you can replay your movements from a novel viewpoint inside a VR headset. This project explores dynamic scene reconstruction using Gaussian Splatting methods.
+      Dynamic scene reconstruction with a focus on near real-time training, rendering, and end-to-end streaming pipeline development. Investigating methods to reduce training time and camera count while maintaining high reconstruction quality.
     </p>
+
+    <hr />
+    <h2 class="section-head">Contributions</h2>
+    <ol class="detail-list">
+      <li>
+        <strong>Multi-camera data acquisition system.</strong>
+        <p>Developed a data acquisition system capable of synchronizing up to 40 cameras. The system allows users to configure camera settings and capture synchronized images or record synchronized video sequences.</p>
+      </li>
+      <li>
+        <strong>Three streaming reconstruction pipelines.</strong>
+        <p>Evaluated multiple reconstruction methods and implemented three streaming pipelines:</p>
+        <ul>
+          <li>VGGT</li>
+          <li>VGGT-initialized FastGS</li>
+          <li>4DGS</li>
+        </ul>
+        <p>For the VGGT and VGGT-initialized FastGS pipelines, a segmentation module was implemented and evaluated to enable reconstruction of only the moving foreground objects. All three pipelines were extensively tested and optimized to reduce processing time and improve overall performance.</p>
+      </li>
+      <li>
+        <strong>All-in-one user interface.</strong>
+        <p>Integrated the complete streaming workflow into a unified user interface. Users can configure pipeline settings, adjust parameters, run different reconstruction methods, and compare their results within the same application.</p>
+      </li>
+      <li>
+        <strong>Improved stability and deployability.</strong>
+        <p>Refined the overall pipeline to improve stability, usability, and ease of deployment across new multi-camera setups.</p>
+      </li>
+    </ol>
 
     <hr />
     <h2 class="section-head">Links</h2>
     <div class="link-row">
-      <a href="#">Paper</a>
-      <a href="#">Video</a>
-      <a href="#">Poster</a>
+      <a href="https://lup.lub.lu.se/student-papers/record/9234843">Paper</a>
+      <a href="https://youtu.be/yCnkC5v3gv0?si=pM9jWniP5mjqnZRC">Video</a>
+      <a href="Files/Pics/MasterThesis/Poster.pdf">Poster</a>
     </div>
+    </main>
   </div>
 </body>
 </html>
